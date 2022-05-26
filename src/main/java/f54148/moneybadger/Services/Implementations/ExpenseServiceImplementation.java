@@ -1,8 +1,8 @@
 package f54148.moneybadger.Services.Implementations;
 
 import f54148.moneybadger.DTOs.AddExpenseDTO;
+import f54148.moneybadger.DTOs.EditExpenseDTO;
 import f54148.moneybadger.Entities.Expense;
-import f54148.moneybadger.Entities.Income;
 import f54148.moneybadger.Entities.User;
 import f54148.moneybadger.Repositories.ExpenseRepository;
 import f54148.moneybadger.Services.ExpenseService;
@@ -10,8 +10,6 @@ import f54148.moneybadger.Services.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -50,6 +48,22 @@ public class ExpenseServiceImplementation implements ExpenseService {
         }
         catch (Exception e){
 
+            return false;
+        }
+    }
+
+    @Override
+    public boolean editExpense(Long expenseId, EditExpenseDTO expenseDTO) {
+
+        Expense convertedEntity = modelMapper.map(expenseDTO,Expense.class);
+        convertedEntity.setId(expenseId);
+        convertedEntity.setDateAdded(getExpenseById(expenseId).getDateAdded());
+        convertedEntity.setUser(getExpenseById(expenseId).getUser());
+        try{
+            expenseRepository.save(convertedEntity);
+            return true;
+        }
+        catch (Exception e){
             return false;
         }
     }

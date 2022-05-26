@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-public class EditIncomeDTO {
-        private String name;
-        private Double value;
-        private Integer timeframe;
+public class EditExpenseDTO {
+    private String name;
+    private Double value;
+    private Integer timeframe;
 }

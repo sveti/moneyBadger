@@ -3,7 +3,6 @@ package f54148.moneybadger.Services;
 import f54148.moneybadger.Entities.Expense;
 import f54148.moneybadger.Entities.Income;
 import f54148.moneybadger.Entities.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

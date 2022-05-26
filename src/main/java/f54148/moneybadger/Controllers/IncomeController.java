@@ -2,8 +2,6 @@ package f54148.moneybadger.Controllers;
 
 import f54148.moneybadger.DTOs.AddIncomeDTO;
 import f54148.moneybadger.DTOs.EditIncomeDTO;
-import f54148.moneybadger.Entities.Income;
-import f54148.moneybadger.Entities.User;
 import f54148.moneybadger.Services.IncomeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
