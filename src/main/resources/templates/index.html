@@ -54,10 +54,13 @@
                     <svg class="bi" width="1em" height="1em"><use xlink:href="#tools"/></svg>
                 </div>
                 <div>
-                    <h2>Reports</h2>
-                 <p>Have a look at our statistics</p>
-                     <a href="/reports" class="btn btn-warning">
-                        Reports
+                    <h2>User Profile</h2>
+                 <p>Something changed? Update us</p>
+                     <a  th:href="@{'/users/edit-user-profile/'+${userId}}" class="btn btn-warning">
+                        Edit Profile
+                    </a>
+                    <a  th:href="@{'/users/change-password/'+${userId}}" class="btn btn-warning">
+                        Change Password
                     </a>
                 </div>
             </div>

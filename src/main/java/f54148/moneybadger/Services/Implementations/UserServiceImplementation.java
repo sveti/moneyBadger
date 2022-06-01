@@ -1,5 +1,6 @@
 package f54148.moneybadger.Services.Implementations;
 
+import f54148.moneybadger.DTOs.UpdateUserDTO;
 import f54148.moneybadger.Entities.Expense;
 import f54148.moneybadger.Entities.Income;
 import f54148.moneybadger.Entities.User;
@@ -7,6 +8,7 @@ import f54148.moneybadger.Exceptions.UserNotFoundException;
 import f54148.moneybadger.Repositories.UserRepository;
 import f54148.moneybadger.Services.UserService;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +24,7 @@ import java.util.Optional;
 public class UserServiceImplementation implements UserService {
 
     private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
     private final PasswordEncoder encoder  = new BCryptPasswordEncoder();
 
     public List<User> getUsers() {
@@ -94,6 +97,29 @@ public class UserServiceImplementation implements UserService {
         User user = getUserById(userId);
         user.getExpenses().add(expense);
         userRepository.save(user);
+    }
+
+    @Override
+    public String updateUser(long id, UpdateUserDTO user) {
+        User userFromDB = getUserById(id);
+        if(getUserByUsername(user.getUsername())!=null && getUserByUsername(user.getUsername()).getId()!= id){
+            return "Username already taken!";
+        }
+        if(getUserByEmail(user.getEmail())!= null && getUserByEmail(user.getEmail()).getId()!= id){
+            return "Email already in use!";
+        }
+        try {
+            userFromDB.setUsername(user.getUsername());
+            userFromDB.setName(user.getName());
+            userFromDB.setLastName(user.getLastName());
+            userFromDB.setEmail(user.getEmail());
+            userRepository.save(userFromDB);
+            return "";
+        }
+        catch (Exception e){
+            return e.getMessage();
+        }
+
     }
 
     @Override

@@ -1,5 +1,6 @@
 package f54148.moneybadger.Services;
 
+import f54148.moneybadger.DTOs.UpdateUserDTO;
 import f54148.moneybadger.Entities.Expense;
 import f54148.moneybadger.Entities.Income;
 import f54148.moneybadger.Entities.User;
@@ -20,4 +21,6 @@ public interface UserService extends UserDetailsService {
 
      void addIncome(Long userId,Income income);
      void addExpense(Long userId, Expense expense);
+
+    String updateUser(long id, UpdateUserDTO user);
 }

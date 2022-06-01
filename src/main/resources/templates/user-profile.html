@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+</head>
+<body>
+<header th:replace="fragments :: header"></header>
+
+<div class="container">
+    <div class="max-auto">
+        <form action="#" th:action="@{/users/editUser/{id}(id=${id})}" th:object="${user}" method="post">
+            <div  class="mb-3">
+                <label for="username">Username</label>
+                <input class="form-control" type="text" th:field="*{username}" placeholder="${username}" id="username">
+                <span class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</span>
+            </div>
+            <div  class="mb-3">
+                <label for="name">Name</label>
+                <input class="form-control" type="text" th:field="*{name}" placeholder="${name}" id="name">
+                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+            </div>
+            <div  class="mb-3">
+                <label for="lastName">Last Name</label>
+                <input class="form-control" type="text" th:field="*{lastName}" placeholder="${lastName}" id="lastName">
+                <span class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">LastName Error</span>
+            </div>
+            <div  class="mb-3">
+                <label for="email">Email</label>
+                <input class="form-control" type="text" th:field="*{email}" placeholder="${email}" id="email">
+                <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+            </div>
+            <button type="submit" class="btn btn-warning">Submit</button>
+            <div th:if="${customErrorMessage}" th:text="${customErrorMessage}" class="alert alert-danger my-5" role="alert">
+                customErrorMessage
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+<footer th:replace="fragments :: footer"></footer>
+</body>
+<script th:replace="fragments :: script" ></script>
+</html>

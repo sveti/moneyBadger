@@ -1,15 +1,20 @@
 package f54148.moneybadger.Controllers;
 
+import f54148.moneybadger.DTOs.UpdateUserDTO;
 import f54148.moneybadger.Entities.Expense;
 import f54148.moneybadger.Entities.Income;
 import f54148.moneybadger.Entities.User;
 import f54148.moneybadger.Services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @AllArgsConstructor
@@ -50,4 +55,23 @@ public class UserController {
         return userService.getAllIncomes(id);
     }
 
+    @GetMapping(path = "/edit-user-profile/{id}")
+    public String editUserProfilePage(Model model,@PathVariable("id") Long id) {
+        model.addAttribute("user", userService.getUserById(id));
+        return "user-profile";
+    }
+
+    @PostMapping(path = "/editUser/{id}")
+    public String editUser(@PathVariable long id, @Valid @ModelAttribute("user") UpdateUserDTO user,
+                           BindingResult bindingResult,Model model) {
+        if (bindingResult.hasErrors()) {
+            return "user-profile";
+        }
+        String result = userService.updateUser(id,user);
+        if(!Objects.equals(result, "")){
+            model.addAttribute("customErrorMessage", result);
+            return "user-profile";
+        };
+        return "redirect:/";
+    }
 }
