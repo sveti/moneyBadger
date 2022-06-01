@@ -7,6 +7,8 @@ import f54148.moneybadger.Exceptions.UserNotFoundException;
 import f54148.moneybadger.Repositories.UserRepository;
 import f54148.moneybadger.Services.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,11 +39,7 @@ public class UserServiceImplementation implements UserService {
 
     public User getUserByUsername(String username) {
         Optional<User> opUser = userRepository.findByUsername(username);
-        if (opUser.isPresent()) {
-            return opUser.get();
-        } else {
-            throw new UserNotFoundException("Invalid username " + username);
-        }
+        return opUser.orElse(null);
     }
 
     public User getUserByEmail(String email) {
@@ -98,4 +96,12 @@ public class UserServiceImplementation implements UserService {
         userRepository.save(user);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = getUserByUsername(username);
+        if(user == null) {
+            throw new UsernameNotFoundException("User Not Found");
+        }
+        return user;
+    }
 }

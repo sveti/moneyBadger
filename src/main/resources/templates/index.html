@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+</head>
+<body>
+<header th:replace="fragments :: header"></header>
+<div class="mx-auto p-3">
+    <h1 th:text="'Hello and  ' + ${welcome}"></h1>
+</div>
+
+<footer th:replace="fragments :: footer"></footer>
+</body>
+<script th:replace="fragments :: script" ></script>
+</html>

@@ -18,7 +18,6 @@ public class UserController {
 
     private final UserService userService;
 
-
     @GetMapping(path = "/")
     public @ResponseBody
     List<User> getAllUsers() {

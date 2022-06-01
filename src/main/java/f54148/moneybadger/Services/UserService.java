@@ -3,11 +3,12 @@ package f54148.moneybadger.Services;
 import f54148.moneybadger.Entities.Expense;
 import f54148.moneybadger.Entities.Income;
 import f54148.moneybadger.Entities.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
      List<User> getUsers();
      User getUserById(Long userId);
      User getUserByUsername(String username);
