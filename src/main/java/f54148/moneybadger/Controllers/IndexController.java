@@ -1,5 +1,6 @@
 package f54148.moneybadger.Controllers;
 
+import f54148.moneybadger.Entities.User;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,14 +16,9 @@ public class IndexController {
 
     @GetMapping
     public String getIndex(Model model, Authentication authentication) {
-        final String welcomeMessage = "Welcome to Money Badger!";
-        model.addAttribute("welcome", welcomeMessage);
 
-        Authentication authentication2 = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("username", authentication.getName());
-
-//        User principal = (User) authentication.getPrincipal();
-//        model.addAttribute("username", principal.getUsername());
+        User principal = (User) authentication.getPrincipal();
+        model.addAttribute("userName", principal.getName() + " " + principal.getLastName());
 
         return "index";
     }

@@ -7,37 +7,26 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
 </head>
-<header th:fragment="header">
-  <div class="row">
-    <div class="col-9 py-2">
-      <h1 class="mx-auto my-2">Money Badger</h1>
-    </div>
 
-    <div class="col-3 pt-3" sec:authorize="isAuthenticated()">
-      Hello,
-      <span sec:authentication="name"></span>
-      <a class="btn btn-primary" th:href="@{/logout}">Logout</a>
-    </div>
+
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 px-5 mb-4 border-bottom" th:fragment="header">
+
+  <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+    <img class="bi me-2 " src="../static/images/badger.png" th:src="@{images/badger.png}" width="40" height="32" role="img" aria-label="Money Badger"  />
+  </a>
+
+  <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+    <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
+    <li><a href="/income" class="nav-link px-2 link-dark">Income</a></li>
+    <li><a href="/expenses" class="nav-link px-2 link-dark">Expenses</a></li>
+    <li><a href="/reports" class="nav-link px-2 link-dark">Reports</a></li>
+  </ul>
+
+  <div class="col-md-3 text-end">
+    <a class="btn btn-primary" th:href="@{/logout}">Logout</a>
   </div>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navigation">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/income">Income</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/expenses">Expenses</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/reports">Reports</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
 </header>
+
 <footer page-footer font-small>
   <div class="footer-copyright text-center py-3">
     <p>F54148 Светозара Минкова</p>
