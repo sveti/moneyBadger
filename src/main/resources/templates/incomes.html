@@ -8,7 +8,7 @@
 <div class="container">
     <div class="max-auto">
         <h4 th:if="${incomes.size()>0}" th:text="'Incomes: ' + ${incomes.size()}"> </h4>
-        <h3 th:unless="${incomes} and ${incomes.size()}">There are no registered incomes! Consider adding some?</h3>
+        <h3 th:unless="${incomes} and ${incomes.size()}" class="my-3">There are no registered incomes! Consider adding some?</h3>
         <table th:if="${incomes.size()>0}" class="table table-hover">
 
             <th>Description</th>
@@ -16,6 +16,7 @@
             <th>Period</th>
             <th>Since</th>
             <th>Edit</th>
+            <th>Delete</th>
 
             <tr th:each="income : ${incomes}">
 
@@ -24,6 +25,7 @@
                 <td th:text="${income.timeframe}"></td>
                 <td th:text="${income.dateAdded}"></td>
                 <td><a class="btn btn-info" th:href="@{'/incomes/edit-income/'+${userId}+'/'+${income.id}}">Edit</a></td>
+                <td><a class="btn btn-danger" th:href="@{'/incomes/delete-income/'+${userId}+'/'+${income.id}}">Delete</a></td>
                     </tr>
         </table>
         <a  th:href="@{'/incomes/add-income/'+${userId}}" class="btn btn-warning">

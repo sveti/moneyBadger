@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+</head>
+<body>
+<header th:replace="fragments :: header"></header>
+
+<div class="container">
+    <div class="max-auto">
+        <h4 th:if="${expenses.size()>0}" th:text="'Expenses: ' + ${expenses.size()}"> </h4>
+        <h3 th:unless="${expenses} and ${expenses.size()}" class="my-3">There are no registered expenses! Consider adding some?</h3>
+        <table th:if="${expenses.size()>0}" class="table table-hover">
+
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Period</th>
+            <th>Since</th>
+            <th>Edit</th>
+            <th>Delete</th>
+
+            <tr th:each="expense : ${expenses}">
+
+                <td th:text="${expense.name}"></td>
+                <td th:text="${expense.value}"></td>
+                <td th:text="${expense.timeframe}"></td>
+                <td th:text="${expense.dateAdded}"></td>
+                <td><a class="btn btn-info" th:href="@{'/expenses/edit-expense/'+${userId}+'/'+${expense.id}}">Edit</a></td>
+                <td><a class="btn btn-danger" th:href="@{'/expenses/delete-expense/'+${userId}+'/'+${expense.id}}">Delete</a></td>
+            </tr>
+        </table>
+        <a  th:href="@{'/expenses/add-expense/'+${userId}}" class="btn btn-warning">
+            Add Expense
+        </a>
+    </div>
+</div>
+
+<footer th:replace="fragments :: footer"></footer>
+</body>
+<script th:replace="fragments :: script" ></script>
+</html>

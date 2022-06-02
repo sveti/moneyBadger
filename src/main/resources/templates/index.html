@@ -44,7 +44,7 @@
                  <p>
                      Payed the rent? Got a new car? Or just did the groceries? Update your expenses to keep track of your finances.
                  </p>
-                    <a href="/expenses" class="btn btn-warning">
+                    <a th:href="@{'/expenses/'+${userId} +'/all'}" class="btn btn-warning">
                         Update expenses
                     </a>
                 </div>

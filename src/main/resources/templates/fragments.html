@@ -17,8 +17,8 @@
 
   <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
     <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
-    <li><a href="/income" class="nav-link px-2 link-dark">Income</a></li>
-    <li><a href="/expenses" class="nav-link px-2 link-dark">Expenses</a></li>
+    <li><a th:href="@{'/incomes/'+${userId} +'/all'}" class="nav-link px-2 link-dark">Income</a></li>
+    <li><a th:href="@{'/expenses/'+${userId} +'/all'}" class="nav-link px-2 link-dark">Expenses</a></li>
     <li><a href="/reports" class="nav-link px-2 link-dark">Reports</a></li>
   </ul>
 

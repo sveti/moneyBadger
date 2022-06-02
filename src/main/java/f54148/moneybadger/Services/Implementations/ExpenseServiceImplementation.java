@@ -1,7 +1,6 @@
 package f54148.moneybadger.Services.Implementations;
 
-import f54148.moneybadger.DTOs.AddExpenseDTO;
-import f54148.moneybadger.DTOs.EditExpenseDTO;
+import f54148.moneybadger.DTOs.*;
 import f54148.moneybadger.Entities.Expense;
 import f54148.moneybadger.Entities.Timeframe;
 import f54148.moneybadger.Entities.User;
@@ -12,6 +11,8 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Locale;
 
 @AllArgsConstructor
@@ -32,6 +33,7 @@ public class ExpenseServiceImplementation implements ExpenseService {
     public boolean addExpense(Long userId, AddExpenseDTO expenseDTO) {
         Expense convertedEntity = modelMapper.map(expenseDTO,Expense.class);
         convertedEntity.setTimeframe(Timeframe.valueOf(expenseDTO.getTimeframe().toUpperCase(Locale.ROOT)));
+        convertedEntity.setDateAdded(LocalDate.now());
         User user = userService.getUserById(userId);
         convertedEntity.setUser(user);
         if(user != null){
@@ -71,5 +73,20 @@ public class ExpenseServiceImplementation implements ExpenseService {
         catch (Exception e){
             return false;
         }
+    }
+
+    @Override
+    public List<Expense> getExpenses(long userId) {
+        return userService.getUserById(userId).getExpenses();
+    }
+
+    @Override
+    public DisplayExpenseDTO convertToDisplayExpenseDTO(Expense expense) {
+        return modelMapper.map(expense, DisplayExpenseDTO.class);
+    }
+
+    @Override
+    public EditExpenseDTO getEditExpenseDTO(Long expenseId) {
+        return modelMapper.map(getExpenseById(expenseId), EditExpenseDTO.class);
     }
 }

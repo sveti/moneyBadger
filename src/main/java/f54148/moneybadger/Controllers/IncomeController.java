@@ -113,4 +113,10 @@ public class IncomeController {
         return "redirect:/incomes/" + userId+"/all";
     }
 
+
+    @GetMapping("/delete-income/{userId}/{incomeId}")
+    public String processProgramForm(Model model,@PathVariable("userId") Long userId, @PathVariable("incomeId") Long incomeId) {
+        incomeService.deleteIncome(incomeId);
+        return "redirect:/incomes/" + userId+"/all";
+    }
 }
