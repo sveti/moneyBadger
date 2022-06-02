@@ -11,5 +11,5 @@ import lombok.ToString;
 public class EditIncomeDTO {
         private String name;
         private Double value;
-        private Integer timeframe;
+        private String timeframe;
 }

@@ -1,5 +1,6 @@
 package f54148.moneybadger.Controllers;
 
+import f54148.moneybadger.DTOs.ChangePasswordDTO;
 import f54148.moneybadger.DTOs.UpdateUserDTO;
 import f54148.moneybadger.Entities.Expense;
 import f54148.moneybadger.Entities.Income;
@@ -60,6 +61,28 @@ public class UserController {
         model.addAttribute("user", userService.getUserById(id));
         return "user-profile";
     }
+
+    @GetMapping(path = "/change-password/{id}")
+    public String changePassword(Model model,@PathVariable("id") Long id) {
+
+        model.addAttribute("password", new ChangePasswordDTO());
+        return "change-password";
+    }
+    @PostMapping(path = "/changePassword/{id}")
+    public String changeUserPassword(@PathVariable long id, @Valid @ModelAttribute("password") ChangePasswordDTO password,
+                           BindingResult bindingResult,Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "change-password";
+        }
+        String result = userService.changePassword(id,password);
+        if(!Objects.equals(result, "")){
+            model.addAttribute("customErrorMessage", result);
+            return "change-password";
+        };
+        return "redirect:/";
+    }
+
 
     @PostMapping(path = "/editUser/{id}")
     public String editUser(@PathVariable long id, @Valid @ModelAttribute("user") UpdateUserDTO user,

@@ -1,5 +1,6 @@
 package f54148.moneybadger.Services;
 
+import f54148.moneybadger.DTOs.ChangePasswordDTO;
 import f54148.moneybadger.DTOs.UpdateUserDTO;
 import f54148.moneybadger.Entities.Expense;
 import f54148.moneybadger.Entities.Income;
@@ -23,4 +24,5 @@ public interface UserService extends UserDetailsService {
      void addExpense(Long userId, Expense expense);
 
     String updateUser(long id, UpdateUserDTO user);
+    String changePassword(long id, ChangePasswordDTO password);
 }

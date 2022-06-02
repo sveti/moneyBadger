@@ -3,6 +3,7 @@ package f54148.moneybadger.Services.Implementations;
 import f54148.moneybadger.DTOs.AddExpenseDTO;
 import f54148.moneybadger.DTOs.EditExpenseDTO;
 import f54148.moneybadger.Entities.Expense;
+import f54148.moneybadger.Entities.Timeframe;
 import f54148.moneybadger.Entities.User;
 import f54148.moneybadger.Repositories.ExpenseRepository;
 import f54148.moneybadger.Services.ExpenseService;
@@ -10,6 +11,8 @@ import f54148.moneybadger.Services.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.Locale;
 
 @AllArgsConstructor
 @Service
@@ -27,11 +30,12 @@ public class ExpenseServiceImplementation implements ExpenseService {
 
     @Override
     public boolean addExpense(Long userId, AddExpenseDTO expenseDTO) {
-        Expense convertedEntry = modelMapper.map(expenseDTO,Expense.class);
+        Expense convertedEntity = modelMapper.map(expenseDTO,Expense.class);
+        convertedEntity.setTimeframe(Timeframe.valueOf(expenseDTO.getTimeframe().toUpperCase(Locale.ROOT)));
         User user = userService.getUserById(userId);
-        convertedEntry.setUser(user);
+        convertedEntity.setUser(user);
         if(user != null){
-            Expense savedEntity = expenseRepository.save(convertedEntry);
+            Expense savedEntity = expenseRepository.save(convertedEntity);
             userService.addExpense(userId,savedEntity);
             return true;
 
@@ -56,6 +60,7 @@ public class ExpenseServiceImplementation implements ExpenseService {
     public boolean editExpense(Long expenseId, EditExpenseDTO expenseDTO) {
 
         Expense convertedEntity = modelMapper.map(expenseDTO,Expense.class);
+        convertedEntity.setTimeframe(Timeframe.valueOf(expenseDTO.getTimeframe()));
         convertedEntity.setId(expenseId);
         convertedEntity.setDateAdded(getExpenseById(expenseId).getDateAdded());
         convertedEntity.setUser(getExpenseById(expenseId).getUser());

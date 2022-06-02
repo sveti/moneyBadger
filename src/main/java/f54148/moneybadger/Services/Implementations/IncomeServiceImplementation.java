@@ -1,15 +1,24 @@
 package f54148.moneybadger.Services.Implementations;
 
 import f54148.moneybadger.DTOs.AddIncomeDTO;
+import f54148.moneybadger.DTOs.DisplayIncomeDTO;
 import f54148.moneybadger.DTOs.EditIncomeDTO;
 import f54148.moneybadger.Entities.Income;
+import f54148.moneybadger.Entities.Timeframe;
 import f54148.moneybadger.Entities.User;
+import f54148.moneybadger.Exceptions.UserNotFoundException;
 import f54148.moneybadger.Repositories.IncomeRepository;
 import f54148.moneybadger.Services.IncomeService;
 import f54148.moneybadger.Services.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -25,8 +34,15 @@ public class IncomeServiceImplementation implements IncomeService {
     }
 
     @Override
+    public List<Income> getIncomes(long userId) {
+        return userService.getUserById(userId).getIncomes();
+    }
+
+    @Override
     public boolean addIncomeToUser(Long userId, AddIncomeDTO income){
         Income convertedEntity = modelMapper.map(income,Income.class);
+        convertedEntity.setTimeframe(Timeframe.valueOf(income.getTimeframe().toUpperCase(Locale.ROOT)));
+        convertedEntity.setDateAdded(LocalDate.now());
         User user = userService.getUserById(userId);
         if(user != null){
             convertedEntity.setUser(user);
@@ -53,6 +69,7 @@ public class IncomeServiceImplementation implements IncomeService {
     @Override
     public boolean editIncome(Long incomeId, EditIncomeDTO income) {
         Income convertedEntity = modelMapper.map(income,Income.class);
+        convertedEntity.setTimeframe(Timeframe.valueOf(income.getTimeframe().toUpperCase(Locale.ROOT)));
         convertedEntity.setId(incomeId);
         convertedEntity.setDateAdded(getIncomeById(incomeId).getDateAdded());
         convertedEntity.setUser(getIncomeById(incomeId).getUser());
@@ -65,4 +82,15 @@ public class IncomeServiceImplementation implements IncomeService {
         }
 
     }
+
+    public DisplayIncomeDTO convertToDisplayIncomeDTO(Income income){
+        return modelMapper.map(income, DisplayIncomeDTO.class);
+    }
+
+    @Override
+    public EditIncomeDTO getEditIncomeDTO(Long incomeId) {
+        return modelMapper.map(getIncomeById(incomeId),EditIncomeDTO.class);
+    }
+
+
 }

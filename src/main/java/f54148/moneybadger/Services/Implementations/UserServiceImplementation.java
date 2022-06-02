@@ -1,5 +1,6 @@
 package f54148.moneybadger.Services.Implementations;
 
+import f54148.moneybadger.DTOs.ChangePasswordDTO;
 import f54148.moneybadger.DTOs.UpdateUserDTO;
 import f54148.moneybadger.Entities.Expense;
 import f54148.moneybadger.Entities.Income;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -120,6 +122,28 @@ public class UserServiceImplementation implements UserService {
             return e.getMessage();
         }
 
+    }
+
+    @Override
+    public String changePassword(long id, ChangePasswordDTO password) {
+
+        if(!Objects.equals(password.getNewPassword(), password.getRepeatNewPassword())){
+            return "New passwords do not match!";
+        }
+
+        User userFromDB = getUserById(id);
+
+        if(!encoder.matches(password.getCurrentPassword(),userFromDB.getPassword())){
+            return "Incorrect current password!";
+        }
+        try {
+            userFromDB.setPassword(encoder.encode(password.getNewPassword()));
+            userRepository.save(userFromDB);
+            return "";
+        }
+        catch (Exception e){
+            return e.getMessage();
+        }
     }
 
     @Override

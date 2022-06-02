@@ -29,8 +29,8 @@ public class DbInit implements CommandLineRunner {
         this.userRepository.deleteAll();
 
         User user = new User();
-        user.setUsername("user");
-        user.setPassword(encoder.encode("user"));
+        user.setUsername("pesho");
+        user.setPassword(encoder.encode("pesho"));
         user.setEmail("pesho@emailProvider.com");
         user.setName("Peter");
         user.setLastName("Peshev");
@@ -39,8 +39,6 @@ public class DbInit implements CommandLineRunner {
         user.setAccountNonLocked(true);
         user.setEnabled(true);
         user.setCredentialsNonExpired(true);
-
-
 
         List<User> users = List.of(user);
 

@@ -26,13 +26,11 @@ public class Expense {
     @NotBlank
     private String name;
 
-    @NotBlank
     private Double value;
 
-    private Integer timeframe;
+    @Enumerated(EnumType.STRING)
+    private Timeframe timeframe;
 
-    @NotBlank
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateAdded;
 
     @ManyToOne(optional = false)

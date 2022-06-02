@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+</head>
+<body>
+<header th:replace="fragments :: header"></header>
+
+<div class="container">
+    <div class="max-auto">
+        <form action="#" th:action="@{/incomes/add-income/{userId}(userId=${userId})}" th:object="${income}" method="post">
+            <div  class="mb-3">
+                <label for="name">Description</label>
+                <input class="form-control" type="text" th:field="*{name}" placeholder="" id="name">
+                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Description Error</span>
+            </div>
+            <div  class="mb-3">
+                <label for="value">Amount</label>
+                <input class="form-control" type="text" th:field="*{value}" placeholder="" id="value">
+                <span class="text-danger" th:if="${#fields.hasErrors('value')}" th:errors="*{value}">Amount Error</span>
+            </div>
+            <div  class="mb-3">
+                <label for="timeframe">Period</label>
+                <select class="form-control" th:field="*{timeframe}"  id="timeframe">
+                    <option th:each="tf : ${timeFrames}" th:value="${tf}" th:text="${tf}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-warning">Submit</button>
+            <div th:if="${customErrorMessage}" th:text="${customErrorMessage}" class="alert alert-danger my-5" role="alert">
+                customErrorMessage
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+<footer th:replace="fragments :: footer"></footer>
+</body>
+<script th:replace="fragments :: script" ></script>
+</html>

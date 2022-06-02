@@ -15,6 +15,6 @@ import java.time.LocalDate;
 public class AddIncomeDTO {
     private String name;
     private Double value;
-    private Integer timeframe;
+    private String timeframe;
     private LocalDate dateAdded;
 }
