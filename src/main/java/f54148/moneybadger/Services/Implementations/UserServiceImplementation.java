@@ -1,6 +1,8 @@
 package f54148.moneybadger.Services.Implementations;
 
+import f54148.moneybadger.DTOs.AddUserDTO;
 import f54148.moneybadger.DTOs.ChangePasswordDTO;
+import f54148.moneybadger.DTOs.ReportDTO;
 import f54148.moneybadger.DTOs.UpdateUserDTO;
 import f54148.moneybadger.Entities.Expense;
 import f54148.moneybadger.Entities.Income;
@@ -16,10 +18,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.*;
 
 @AllArgsConstructor
 @Service
@@ -49,11 +50,7 @@ public class UserServiceImplementation implements UserService {
 
     public User getUserByEmail(String email) {
         Optional<User> opUser = userRepository.findByEmail(email);
-        if (opUser.isPresent()) {
-            return opUser.get();
-        } else {
-            throw new UserNotFoundException("Invalid email " + email);
-        }
+        return opUser.orElse(null);
     }
 
     public boolean addUser(User user) {
@@ -144,6 +141,79 @@ public class UserServiceImplementation implements UserService {
         catch (Exception e){
             return e.getMessage();
         }
+    }
+
+    @Override
+    public List<ReportDTO> getReports(Long userId) {
+        User user = getUserById(userId);
+        List<ReportDTO> reports = new LinkedList<>();
+
+        for(Income income: user.getIncomes()){
+            ReportDTO report = new ReportDTO("income",income.getName(), income.getValue(), 1,income.getValue(),false);
+            LocalDate now = LocalDate.now();
+            switch (income.getTimeframe()){
+                case DAILY:
+                    report.setTimes(now.getDayOfMonth());
+
+                    break;
+                case WEEKLY:
+                    DayOfWeek dayOfTheWeekAdded = income.getDateAdded().getDayOfWeek();
+                    report.setTimes((now.getDayOfMonth()-dayOfTheWeekAdded.getValue())/7+1);
+                    break;
+                case BIWEEKLY:
+                    report.setTimes(now.getDayOfMonth()>15?2:1);
+
+                }
+            report.setTotal(income.getValue()*report.getTimes());
+            reports.add(report);
+            }
+
+        for(Expense expense: user.getExpenses()){
+            ReportDTO report = new ReportDTO("expense",expense.getName(), expense.getValue(), 1,expense.getValue(),true);
+            LocalDate now = LocalDate.now();
+            switch (expense.getTimeframe()){
+                case DAILY:
+                    report.setTimes(now.getDayOfMonth());
+                    break;
+                case WEEKLY:
+                    DayOfWeek dayOfTheWeekAdded = expense.getDateAdded().getDayOfWeek();
+                    report.setTimes((now.getDayOfMonth()-dayOfTheWeekAdded.getValue())/7+1);
+                    break;
+                case BIWEEKLY:
+                    report.setTimes(now.getDayOfMonth()>15?2:1);
+
+            }
+            report.setTotal(expense.getValue()*report.getTimes());
+            reports.add(report);
+        }
+        System.out.println(reports);
+
+        return reports;
+    }
+
+    @Override
+    public String addUser(AddUserDTO user) {
+
+        if(getUserByUsername(user.getUsername())!=null){
+            return "Username already taken!";
+        }
+        if(getUserByEmail(user.getEmail())!= null){
+            return "Email already in use!";
+        }
+
+        try {
+            User userEntity = modelMapper.map(user, User.class);
+            userEntity.setAccountNonExpired(true);
+            userEntity.setAccountNonLocked(true);
+            userEntity.setCredentialsNonExpired(true);
+            userEntity.setEnabled(true);
+            addUser(userEntity);
+            return "";
+        }
+        catch (Exception e){
+            return e.getMessage();
+        }
+
     }
 
     @Override

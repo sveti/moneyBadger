@@ -2,47 +2,50 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <head th:replace="fragments :: head">
-</head>
-<style>
+    </head>
+    <style>
 
-    html,
-    body {
-        height: 100%;
-    }
+        html,
+        body {
+            height: 100%;
+        }
 
-    body {
-        display: flex;
-        align-items: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
-        background-color: #fec84e;
-        background-image: linear-gradient(315deg, #fec84e 0%, #ffdea8 74%);
-    }
+        body {
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #fec84e;
+            background-image: linear-gradient(315deg, #fec84e 0%, #ffdea8 74%);
+        }
 
-    .form-signin {
-        max-width: 330px;
-        padding: 15px;
-    }
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+        }
 
-    .form-signin .form-floating:focus-within {
-        z-index: 2;
-    }
+        .form-signin .form-floating:focus-within {
+            z-index: 2;
+        }
 
-    .form-signin input[type="text"] {
-        margin-bottom: -1px;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-    }
+        .form-signin input[type="text"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
 
-    .form-signin input[type="password"] {
-        margin-bottom: 10px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
-</style>
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+    </style>
 <body class="text-center">
 
 <main class="form-signin w-100 m-auto">
+    <div class="alert alert-success my-3" role="alert">
+       You have successfully been registered. Log in!
+    </div>
     <form name="login" th:action="@{/login}" method="post">
         <img class="mb-4" src="../static/images/badger.png" th:src="@{images/badger.png}" alt="" width="72" height="57"/>
         <h1 class="h3 mb-3 fw-normal">Money Badger Sign In</h1>
@@ -60,11 +63,10 @@
         </div>
 
         <button class="w-100 btn btn-lg btn-warning mt-2 mb-1" type="submit">Sign in</button>
-        <a  th:href="@{'/register'}" class="w-100 btn btn-lg btn-dark my-1">Register</a>
     </form>
 
 
-<footer th:replace="fragments :: footer"></footer>
+    <footer th:replace="fragments :: footer"></footer>
 </main>
 </body>
 <script th:replace="fragments :: script" ></script>

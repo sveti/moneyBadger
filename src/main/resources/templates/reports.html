@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+</head>
+<body>
+<header th:replace="fragments :: header"></header>
+<div class="container">
+   <h3 th:unless="${reports} and ${reports.size()}" class="my-3">There are no registered expenses or incomes so no report could be generated</h3>
+   <table th:if="${reports.size()>0}" class="table table-hover">
+
+      <th>Description</th>
+      <th>Type</th>
+      <th>Amount</th>
+      <th>Times per month</th>
+      <th>Total</th>
+
+
+      <tr th:each="report : ${reports}" class="" th:classappend="${report.isRed} ? table-danger : table-success">
+
+         <td th:text="${report.description}"></td>
+         <td th:text="${report.type}"></td>
+         <td th:text="${report.amount}"></td>
+         <td th:text="${report.times}"></td>
+         <td th:text="${report.total}"></td>
+      </tr>
+      <tr>
+         <td colspan="4" class="text-end">Total</td>
+            <td class="text-center" th:text="${totalReports}"></td>
+      </tr>
+   </table>
+
+</div>
+
+<footer th:replace="fragments :: footer"></footer>
+</body>
+<script th:replace="fragments :: script" ></script>
+</html>

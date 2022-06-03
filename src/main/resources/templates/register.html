@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="fragments :: head">
+    </head>
+    <style>
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #fec84e;
+            background-image: linear-gradient(315deg, #fec84e 0%, #ffdea8 74%);
+        }
+
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+        }
+
+        .form-signin .form-floating:focus-within {
+            z-index: 2;
+        }
+
+    </style>
+<body class="text-center">
+
+<main class="form-signin w-100 m-auto">
+    <form name="login" th:action="@{/register}"   th:object="${user}"  method="post">
+        <img class="mb-4" src="../static/images/badger.png" th:src="@{images/badger.png}" alt="" width="72" height="57"/>
+        <h1 class="h3 mb-3 fw-normal">Money Badger Register</h1>
+
+        <div class="form-floating">
+            <input type="text" class="form-control" th:field="*{username}" id="username" name="username" placeholder="Username" required autofocus>
+            <label for="username">Username</label>
+            <span class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</span>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" th:field="*{password}" id="password" name="password" placeholder="Password" required >
+            <label for="username">Password</label>
+            <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</span>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" th:field="*{name}" id="name" name="name" placeholder="Name" required >
+            <label for="name">Name</label>
+            <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" th:field="*{lastName}" id="lastName" name="lastName" placeholder="Last Name" required >
+            <label for="lastName">Last Name</label>
+            <span class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</span>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" th:field="*{email}" id="email" name="email" placeholder="Email" required >
+            <label for="email">Email</label>
+            <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+        </div>
+
+        <div th:if="${loginError == true}" class="alert alert-danger" role="alert">
+            Incorrect Username or Password!
+        </div>
+
+        <button class="w-100 btn btn-lg btn-warning mt-2 mb-1" type="submit">Register</button>
+
+        <div th:if="${customErrorMessageFlag}" th:text="${customErrorMessage}" class="alert alert-danger my-3" role="alert"></div>
+
+
+    </form>
+
+
+    <footer th:replace="fragments :: footer"></footer>
+</main>
+</body>
+<script th:replace="fragments :: script" ></script>
+</html>

@@ -45,9 +45,6 @@ public class User implements UserDetails {
     @NotBlank
     private String lastName;
 
-    @Enumerated(EnumType.STRING)
-    private Currency currency;
-
     @Column
     private boolean isAccountNonExpired;
 
@@ -73,16 +70,4 @@ public class User implements UserDetails {
         return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", currency=" + currency +
-                '}';
-    }
 }
