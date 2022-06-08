@@ -4,10 +4,10 @@
     <title>Error page</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="css/main.css" th:href="@{/css/main.css}" />
-    <head th:replace="fragments :: head">
+    <head authorize="isAuthenticated()" th:replace="fragments :: head">
 </head>
 <body th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
-<header th:replace="fragments :: header"></header>
+<header authorize="isAuthenticated()" th:replace="fragments :: header"></header>
 <div class="container">
 
     <div class="alert alert-danger" role="alert">
@@ -19,7 +19,7 @@
 </div>
 
 
-<footer th:replace="fragments :: footer"></footer>
+<footer authorize="isAuthenticated()" th:replace="fragments :: footer"></footer>
 </body>
-<script th:replace="fragments :: script" ></script>
+<script authorize="isAuthenticated()" th:replace="fragments :: script" ></script>
 </html>

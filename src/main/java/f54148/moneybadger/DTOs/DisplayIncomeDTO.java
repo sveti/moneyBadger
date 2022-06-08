@@ -1,9 +1,7 @@
 package f54148.moneybadger.DTOs;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Getter

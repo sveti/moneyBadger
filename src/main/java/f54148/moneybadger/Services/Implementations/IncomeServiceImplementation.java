@@ -6,7 +6,6 @@ import f54148.moneybadger.DTOs.EditIncomeDTO;
 import f54148.moneybadger.Entities.Income;
 import f54148.moneybadger.Entities.Timeframe;
 import f54148.moneybadger.Entities.User;
-import f54148.moneybadger.Exceptions.UserNotFoundException;
 import f54148.moneybadger.Repositories.IncomeRepository;
 import f54148.moneybadger.Services.IncomeService;
 import f54148.moneybadger.Services.UserService;
@@ -14,11 +13,9 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service

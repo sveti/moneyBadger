@@ -2,8 +2,8 @@ package f54148.moneybadger.Services;
 
 import f54148.moneybadger.DTOs.AddUserDTO;
 import f54148.moneybadger.DTOs.ChangePasswordDTO;
-import f54148.moneybadger.DTOs.UpdateUserDTO;
 import f54148.moneybadger.DTOs.ReportDTO;
+import f54148.moneybadger.DTOs.UpdateUserDTO;
 import f54148.moneybadger.Entities.Expense;
 import f54148.moneybadger.Entities.Income;
 import f54148.moneybadger.Entities.User;

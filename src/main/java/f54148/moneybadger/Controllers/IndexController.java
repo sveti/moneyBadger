@@ -1,7 +1,6 @@
 package f54148.moneybadger.Controllers;
 
 import f54148.moneybadger.DTOs.AddUserDTO;
-import f54148.moneybadger.DTOs.UpdateUserDTO;
 import f54148.moneybadger.Entities.User;
 import f54148.moneybadger.Services.UserService;
 import lombok.AllArgsConstructor;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.util.Objects;
 
 @Controller
 @AllArgsConstructor

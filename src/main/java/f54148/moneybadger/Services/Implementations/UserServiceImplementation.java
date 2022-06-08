@@ -186,7 +186,6 @@ public class UserServiceImplementation implements UserService {
             report.setTotal(expense.getValue()*report.getTimes());
             reports.add(report);
         }
-        System.out.println(reports);
 
         return reports;
     }

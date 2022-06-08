@@ -24,7 +24,7 @@
                     <option th:each="tf : ${timeFrames}" th:value="${tf}" th:text="${tf}" th:selected="${tf} == ${selectedTimeFrame}" ></option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-warning">Edit</button>
+            <button type="submit" class="btn btn-warning">Save changes</button>
             <div th:if="${customErrorMessage}" th:text="${customErrorMessage}" class="alert alert-danger my-5" role="alert">
                 customErrorMessage
             </div>

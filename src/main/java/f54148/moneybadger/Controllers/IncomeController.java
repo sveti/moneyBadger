@@ -3,7 +3,6 @@ package f54148.moneybadger.Controllers;
 import f54148.moneybadger.DTOs.AddIncomeDTO;
 import f54148.moneybadger.DTOs.DisplayIncomeDTO;
 import f54148.moneybadger.DTOs.EditIncomeDTO;
-import f54148.moneybadger.Entities.Income;
 import f54148.moneybadger.Entities.Timeframe;
 import f54148.moneybadger.Services.IncomeService;
 import lombok.AllArgsConstructor;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller
